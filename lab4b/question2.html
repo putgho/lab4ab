@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lab 4b - Question 2</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+  <h2>Book Details</h2>
+  <p>Open Inspect - Console to see the output too.</p>
+  <ul id="output"></ul>
+
+  <script>
+    // Load books.json, then use the data
+    $.getJSON("books.json", function (data) {
+      const books = data.books;
+
+      // (a) The title of the first book
+      const firstTitle = books[0].title;
+      console.log("(a) title of the first book: " + firstTitle);
+
+      // (b) The author of the second book
+      const secondAuthor = books[1].author;
+      console.log("(b) author of the second book: " + secondAuthor);
+
+      // (c) The genres of all books
+      console.log("(c) genres of all books: ");
+      for (let i = 0; i < books.length; i++) {
+        console.log("   " + books[i].title + ": " + books[i].genres.join(", "));
+      }
+
+      // Also show the same details on the page using jQuery
+      $("#output").append("<li>(a) title of the first book: " + firstTitle + "</li>");
+      $("#output").append("<li>(b) author of the second book: " + secondAuthor + "</li>");
+      $.each(books, function (index, book) {
+        $("#output").append("<li>(c) genres of " + book.title + ": " + book.genres.join(", ") + "</li>");
+      });
+    }).fail(function () {
+      console.log("Could not load books.json");
+    });
+  </script>
+
+</body>
+</html>
