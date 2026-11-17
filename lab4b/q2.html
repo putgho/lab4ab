@@ -1,45 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Lab 4b - Question 2</title>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 4b - Question 2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <body>
 
-  <h2>Book Details</h2>
-  <p>Open Inspect - Console to see the output too.</p>
-  <ul id="output"></ul>
+    <h2>Book Details</h2>
+    <ul id="output"></ul>
 
-  <script>
-    // Load books.json, then use the data
-    $.getJSON("books.json", function (data) {
-      const books = data.books;
+    <script>
 
-      // (a) The title of the first book
-      const firstTitle = books[0].title;
-      console.log("(a) title of the first book: " + firstTitle);
+        // JSON data from Question 1 (books.json)
+        const bookData = {
+                            "books":
+                            [
+                                {
+                                    "title":"The Great Gatsby",
+                                    "author":"F. Scott Fitzgerald",
+                                    "publicationYear":1925,
+                                    "genres":["Fiction","Classics"]
+                                },
+                                {
+                                    "title":"To Kill a Mockingbird",
+                                    "author":"Harper Lee",
+                                    "publicationYear":1960,
+                                    "genres":["Fiction","Coming-of-Age"]
+                                }
+                            ]
+                        };
 
-      // (b) The author of the second book
-      const secondAuthor = books[1].author;
-      console.log("(b) author of the second book: " + secondAuthor);
+        // (a) the title of the first book
+        console.log(bookData.books[0].title);
 
-      // (c) The genres of all books
-      console.log("(c) genres of all books: ");
-      for (let i = 0; i < books.length; i++) {
-        console.log("   " + books[i].title + ": " + books[i].genres.join(", "));
-      }
+        // (b) the author of the second book
+        console.log(bookData.books[1].author);
 
-      // Also show the same details on the page using jQuery
-      $("#output").append("<li>(a) title of the first book: " + firstTitle + "</li>");
-      $("#output").append("<li>(b) author of the second book: " + secondAuthor + "</li>");
-      $.each(books, function (index, book) {
-        $("#output").append("<li>(c) genres of " + book.title + ": " + book.genres.join(", ") + "</li>");
-      });
-    }).fail(function () {
-      console.log("Could not load books.json");
-    });
-  </script>
+        // (c) loop through the books and display the genres
+        bookData.books.forEach(book => {
+            console.log(book.genres);
+        });
 
+        // also display the same details on the page using jQuery
+        $("#output").append("<li>(a) Title of the first book: " + bookData.books[0].title + "</li>");
+        $("#output").append("<li>(b) Author of the second book: " + bookData.books[1].author + "</li>");
+        bookData.books.forEach(book => {
+            $("#output").append("<li>(c) Genres of " + book.title + ": " + book.genres.join(", ") + "</li>");
+        });
+
+    </script>
 </body>
 </html>
